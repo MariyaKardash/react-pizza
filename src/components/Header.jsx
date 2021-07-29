@@ -1,6 +1,6 @@
 import React from 'react';
 
-import logo from './resourses/img/pizza-logo.svg';
+import logo from '../resourses/img/pizza-logo.svg';
 
 import Button from './Button';
 
