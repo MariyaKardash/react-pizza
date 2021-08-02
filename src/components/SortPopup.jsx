@@ -5,7 +5,7 @@ function SortPopup({ items }) {
   const [activeItem, setActiveItem] = useState(0);
   const sortRef = useRef();
 
-  const activeLabel = items[activeItem];
+  const activeLabel = items[activeItem].name;
 
   const handleOutsideClick = (e) => {
     if (!e.path.includes(sortRef.current)) {
@@ -44,9 +44,9 @@ function SortPopup({ items }) {
                     setActiveItem(index);
                     setOpenPopup(false);
                   }}
-                  key={`${elem}_${index}`}
+                  key={`${elem.type}_${index}`}
                   className={activeItem === index ? 'active' : ''}>
-                  {elem}
+                  {elem.name}
                 </li>
               ))}
           </ul>
