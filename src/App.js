@@ -12,13 +12,11 @@ function App() {
       .then((data) => setPizzas(data.pizzas));
   }, []);
 
-  console.log(pizzas);
-
   return (
     <div className="wrapper">
       <Header />
       <div className="content"></div>
-      <Route path="/" exact component={Home} />
+      <Route path="/" exact render={() => <Home items={pizzas} />} />
       <Route path="/cart" exact component={Cart} />
     </div>
   );
