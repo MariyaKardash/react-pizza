@@ -30,6 +30,13 @@ const cart = (state = initialState, action) => {
         totalCount: arrItems.length,
         totalPrice,
       };
+    case 'CLEAR_CART':
+      return {
+        ...state,
+        totalPrice: 0,
+        totalCount: 0,
+        items: {},
+      };
     default:
       return state;
   }

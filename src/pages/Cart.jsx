@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CartItem } from '../components';
+import { clearCart } from '../redux/actions/cart';
 
 function Cart() {
   const dispatch = useDispatch();
@@ -9,6 +10,12 @@ function Cart() {
   const pizzasGroup = Object.keys(items).map((key) => {
     return items[key].items[0];
   });
+
+  const onClearCart = () => {
+    if (window.confirm('Вы действительно хотите очистить корзину?')) {
+      dispatch(clearCart());
+    }
+  };
 
   return (
     <div className="content">
@@ -83,7 +90,7 @@ function Cart() {
                 />
               </svg>
 
-              <span>Очистить корзину</span>
+              <span onClick={onClearCart}>Очистить корзину</span>
             </div>
           </div>
           <div className="content__items">
