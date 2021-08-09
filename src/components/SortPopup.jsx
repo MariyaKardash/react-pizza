@@ -8,7 +8,8 @@ const SortPopup = memo(function SortPopup({ items, activeSortType, onClickSortTy
   const activeLabel = items.find((obj) => obj.type === activeSortType).name;
 
   const handleOutsideClick = (e) => {
-    if (!e.path.includes(sortRef.current)) {
+    const path = e.path || (e.composedPath && e.composedPath());
+    if (!path.includes(sortRef.current)) {
       setOpenPopup(false);
     }
   };
