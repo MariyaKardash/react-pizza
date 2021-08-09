@@ -34,7 +34,10 @@ function Home() {
   }, []);
 
   const handleAddPizzaToCart = (obj) => {
-    dispatch(addPizzaToCart(obj));
+    dispatch({
+      type: 'ADD_PIZZA_CART',
+      payload: obj,
+    });
   };
 
   return (
