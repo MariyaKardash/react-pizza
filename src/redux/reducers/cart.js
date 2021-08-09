@@ -13,11 +13,14 @@ const cart = (state = initialState, action) => {
           ? [action.payload]
           : [...state.items[action.payload.id], action.payload],
       };
+      const arrItems = Object.values(newItems).flat();
+      const totalPrice = arrItems.reduce((sum, obj) => obj.price + sum, 0);
 
       return {
         ...state,
         items: newItems,
-        totalCount: Object.keys(newItems).length,
+        totalCount: arrItems.length,
+        totalPrice,
       };
     default:
       return state;

@@ -18,6 +18,7 @@ function Home() {
   const dispatch = useDispatch();
 
   const items = useSelector(({ pizzas }) => pizzas.items);
+  const cartItems = useSelector(({ cart }) => cart.items);
   const isLoaded = useSelector(({ pizzas }) => pizzas.isLoaded);
   const { category, sortBy } = useSelector(({ filters }) => filters);
 
@@ -58,7 +59,12 @@ function Home() {
       <div className="content__items">
         {isLoaded
           ? items.map((elem) => (
-              <PizzaBlock onClickAddPizza={handleAddPizzaToCart} key={elem.id} {...elem} />
+              <PizzaBlock
+                onClickAddPizza={handleAddPizzaToCart}
+                addedCount={cartItems[elem.id] && cartItems[elem.id].length}
+                key={elem.id}
+                {...elem}
+              />
             ))
           : Array(12)
               .fill(0)
