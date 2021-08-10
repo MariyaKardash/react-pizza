@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { CartItem } from '../components';
-import { clearCart, removeCartItem } from '../redux/actions/cart';
+import { Button, CartItem } from '../components';
+import { clearCart, removeCartItem, plusCartItem, minusCartItem } from '../redux/actions/cart';
 
 import cartEmptyImage from '../resourses/img/empty-cart.png';
 
@@ -24,6 +24,18 @@ function Cart() {
     if (window.confirm('Вы действительно хотите удалить пиццу?')) {
       dispatch(removeCartItem(id));
     }
+  };
+
+  const onPlusItem = (id) => {
+    dispatch(plusCartItem(id));
+  };
+
+  const onMinusItem = (id) => {
+    dispatch(minusCartItem(id));
+  };
+
+  const onClickOrder = () => {
+    console.log('Ваш заказ: ', items);
   };
 
   return (
@@ -106,6 +118,7 @@ function Cart() {
             <div className="content__items">
               {pizzasGroup.map((obj) => (
                 <CartItem
+                  key={obj.id}
                   id={obj.id}
                   name={obj.name}
                   imageUrl={obj.imageUrl}
@@ -114,6 +127,8 @@ function Cart() {
                   totalPrice={items[obj.id].totalPrice}
                   totalCount={items[obj.id].items.length}
                   onRemove={onRemoveItem}
+                  onMinus={onMinusItem}
+                  onPlus={onPlusItem}
                 />
               ))}
             </div>
@@ -127,7 +142,7 @@ function Cart() {
                 </span>
               </div>
               <div className="cart__bottom-buttons">
-                <a href="/" className="button button--outline button--add go-back-btn">
+                <Link to="/" className="button button--outline button--add go-back-btn">
                   <svg
                     width="8"
                     height="14"
@@ -144,17 +159,17 @@ function Cart() {
                   </svg>
 
                   <span>Вернуться назад</span>
-                </a>
-                <div className="button pay-btn">
+                </Link>
+                <Button onClick={onClickOrder} rclassName="pay-btn">
                   <span>Оплатить сейчас</span>
-                </div>
+                </Button>
               </div>
             </div>
           </div>
         ) : (
           <div className="cart cart--empty">
             <h2>
-              Корзина пустая <icon>😕</icon>
+              Корзина пустая <i>😕</i>
             </h2>
             <p>
               Вероятней всего, вы не заказывали ещё пиццу.
